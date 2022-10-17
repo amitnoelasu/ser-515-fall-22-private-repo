@@ -1,8 +1,6 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
+
 public class Facade {
     private int userType;
     private Product theSelectedProduct;
@@ -11,6 +9,7 @@ public class Facade {
     Person thePerson;
 
     boolean login() {
+
         System.out.println("Enter username: ");
 
         Scanner scanner = new Scanner(System.in);
@@ -18,7 +17,6 @@ public class Facade {
 
         System.out.println("Enter password: ");
         String password = scanner.nextLine().trim();
-
         //validate username and password from the database
         HashMap<String, String> buyerCredentials = new HashMap<String, String>();
         HashMap<String, String> sellerCredentials = new HashMap<String, String>();
@@ -40,7 +38,7 @@ public class Facade {
 
             File sellerFile = new File("SellerInfo.txt");
             br
-                    = new BufferedReader(new FileReader(buyerFile));
+                    = new BufferedReader(new FileReader(sellerFile));
 
             while ((st = br.readLine()) != null) {
                 String[] splitArr = st.split(":");
@@ -50,9 +48,11 @@ public class Facade {
             //set user type
             if(buyerCredentials.containsKey(username) && buyerCredentials.get(username).equals(password)) {
                 userType = 0;
+                createUser(new UserInfoItem(username, password, userType));
                 return true;
             } else if(sellerCredentials.containsKey(username) && sellerCredentials.get(username).equals(password)) {
                 userType = 1;
+                createUser(new UserInfoItem(username, password, userType));
                 return true;
             } else {
                 return false;
@@ -61,9 +61,6 @@ public class Facade {
         }catch (Exception e) {
             System.err.println("Error reading text files" + e.getMessage());
         }
-
-
-
         return false;
     }
 
@@ -91,16 +88,44 @@ public class Facade {
 
     }
 
-    void createUser(UserInformation userInformation) {
-
+    void createUser(UserInfoItem userInfoItem) {
+        thePerson = userInfoItem.getUserType() == 0? new Buyer(userInfoItem): new Seller(userInfoItem);
     }
 
-    void createProductList() {
+    void createProductList() throws Exception{
+        File productFile = new File(
+                "ProductInfo.txt");
+        BufferedReader br
+                = new BufferedReader(new FileReader(productFile));
 
+        String st;
+
+        List<Product> productList = new ArrayList<Product>();
+        while ((st = br.readLine()) != null) {
+            String[] splitArr = st.split(":");
+            Product product = new Product(splitArr[0], splitArr[1]);
+            productList.add(product);
+        }
+
+        theProductList = new ClassProductList(productList);
     }
 
-    void attachProductToUser() {
+    void attachProductToUser() throws Exception {
+        List<String> userProductList = new ArrayList<String>();
+        File userProducts = new File(
+                "UserProduct.txt");
+        BufferedReader br
+                = new BufferedReader(new FileReader(userProducts));
 
+        String st;
+
+//        List<Product> productList = new ArrayList<Product>();
+//        while ((st = br.readLine()) != null) {
+//            String[] splitArr = st.split(":");
+//            if(splitArr[0].equals(thePerson.))
+//            Product product = new Product(splitArr[0], splitArr[1]);
+//            productList.add(product);
+//        }
     }
 
     void selectProduct() {
