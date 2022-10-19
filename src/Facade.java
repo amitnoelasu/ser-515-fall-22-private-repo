@@ -17,49 +17,13 @@ public class Facade {
 
         System.out.println("Enter password: ");
         String password = scanner.nextLine().trim();
-        //validate username and password from the database
-        HashMap<String, String> buyerCredentials = new HashMap<String, String>();
-        HashMap<String, String> sellerCredentials = new HashMap<String, String>();
 
-
-        try {
-            File buyerFile = new File(
-                    "BuyerInfo.txt");
-            BufferedReader br
-                    = new BufferedReader(new FileReader(buyerFile));
-
-
-            String st;
-
-            while ((st = br.readLine()) != null) {
-                String[] splitArr = st.split(":");
-                buyerCredentials.put(splitArr[0], splitArr[1]);
-            }
-
-            File sellerFile = new File("SellerInfo.txt");
-            br
-                    = new BufferedReader(new FileReader(sellerFile));
-
-            while ((st = br.readLine()) != null) {
-                String[] splitArr = st.split(":");
-                sellerCredentials.put(splitArr[0], splitArr[1]);
-            }
-
-            //set user type
-            if(buyerCredentials.containsKey(username) && buyerCredentials.get(username).equals(password)) {
-                userType = 0;
-                createUser(new UserInfoItem(username, password, userType));
-                return true;
-            } else if(sellerCredentials.containsKey(username) && sellerCredentials.get(username).equals(password)) {
-                userType = 1;
-                createUser(new UserInfoItem(username, password, userType));
-                return true;
-            } else {
-                return false;
-            }
-
-        }catch (Exception e) {
-            System.err.println("Error reading text files" + e.getMessage());
+        Login loginObject = new Login();
+        int tempUserType = loginObject.login(username, password);
+        if(tempUserType != -1) {
+            userType = tempUserType;
+            createUser(new UserInfoItem(username,password,userType));
+            return true;
         }
         return false;
     }
@@ -93,25 +57,12 @@ public class Facade {
     }
 
     void createProductList() throws Exception{
-        File productFile = new File(
-                "ProductInfo.txt");
-        BufferedReader br
-                = new BufferedReader(new FileReader(productFile));
-
-        String st;
-
-        List<Product> productList = new ArrayList<Product>();
-        while ((st = br.readLine()) != null) {
-            String[] splitArr = st.split(":");
-            Product product = new Product(splitArr[0], splitArr[1]);
-            productList.add(product);
-        }
-
-        theProductList = new ClassProductList(productList);
+        this.theProductList = new ClassProductList();// creates a list of all products in the system
+//        System.out.println(Arrays.toString(theProductList.productList.toArray()));
     }
 
     void attachProductToUser() throws Exception {
-        List<String> userProductList = new ArrayList<String>();
+        Set<String> userProductList = new HashSet<String>();
         File userProducts = new File(
                 "UserProduct.txt");
         BufferedReader br
@@ -120,12 +71,36 @@ public class Facade {
         String st;
 
 //        List<Product> productList = new ArrayList<Product>();
-//        while ((st = br.readLine()) != null) {
-//            String[] splitArr = st.split(":");
-//            if(splitArr[0].equals(thePerson.))
-//            Product product = new Product(splitArr[0], splitArr[1]);
-//            productList.add(product);
-//        }
+        while ((st = br.readLine()) != null) {
+            String[] splitArr = st.split(":");
+            if(splitArr[0].equals(thePerson.getUserInfoItem().getUsername())) {
+                userProductList.add(splitArr[1]);
+            }
+        }
+
+//        System.out.println(Arrays.toString(userProductList.toArray()));
+        try {
+//            System.out.println("proddd " + Arrays.toString(theProductList.getProductList().toArray()));
+            List<Product> productL = new ArrayList<Product>();
+            for(Product product: theProductList.getProductList()) {
+                String productName = product.getProductName();
+//                System.out.println("product name: "+productName);
+                if(userProductList.contains(productName)) {
+//                    System.out.println("inside ");
+//                    System.out.println(thePerson.getProductList());
+//                    System.out.println("outside");
+                    productL.add(product);
+//                    thePerson.getProductList().add(product);
+                }
+
+            }
+            thePerson.setProductList(productL);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println(Arrays.toString(thePerson.productList.toArray()));
+
     }
 
     void selectProduct() {

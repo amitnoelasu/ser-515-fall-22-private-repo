@@ -10,13 +10,23 @@ public class Main {
             System.out.println("Welcome");
             try {
                 facade.createProductList();
+                facade.attachProductToUser();
             } catch (Exception e) {
-                System.err.println("Error creating product List: "+e.getMessage());
+                System.err.println("Error creating product List: " + e.getMessage());
             }
-
-        } else {
-            System.out.println("Sorry, you are not a registered user");
         }
+//        } else {
+//            Scanner s = new Scanner(System.in);
+//            System.out.println("Sorry, you are not a registered user.");
+//            System.out.println("Do you want to try again? Y/N");
+//            String choice = s.nextLine().trim();
+//            if(choice.equalsIgnoreCase("y")) {
+//                facade.login();
+//            } else {
+//                System.out.println("Bye!");
+//            }
+//
+//        }
 
     }
 }
