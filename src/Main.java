@@ -11,6 +11,11 @@ public class Main {
             try {
                 facade.createProductList();
                 facade.attachProductToUser();
+                Product selectedProduct = facade.selectProduct();
+                if(selectedProduct != null) {
+                    facade.productOperation();
+                }
+//                System.out.println(selectedProduct);
             } catch (Exception e) {
                 System.err.println("Error creating product List: " + e.getMessage());
             }

@@ -103,12 +103,27 @@ public class Facade {
 
     }
 
-    void selectProduct() {
-
+    Product selectProduct() {
+        int count = 1;
+        for(Product product: thePerson.getProductList()) {
+            System.out.println(count + ": "+product.getProductName());
+            count++;
+        }
+        Scanner s = new Scanner(System.in);
+        System.out.println("select the product: ");
+        int choice = s.nextInt();
+        for(int i = 0; i<thePerson.getProductList().size(); i++) {
+            Product currentProduct = thePerson.getProductList().get(i);
+            if(i == choice-1) {
+                this.theSelectedProduct = currentProduct;
+                return currentProduct;
+            }
+        }
+        return null;
     }
 
     void productOperation() {
-
+        thePerson.showMenu();
     }
 
 
