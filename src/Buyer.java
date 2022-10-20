@@ -24,6 +24,8 @@ public class Buyer extends Person{
 
     @Override
     ProductMenu createProductMenu(Product selectedProduct) {
+        // FACTORY METHOD PATTERN USED TO INSTANTIATE DIFFERENT TYPES OF PRODUCT MENUS
+        // BASED ON THE SELECTED PRODUCT
         if(selectedProduct.productType.equalsIgnoreCase("Meat")) {
             theProductMenu = new MeatProductMenu();
             return theProductMenu;

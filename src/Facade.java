@@ -74,7 +74,7 @@ public class Facade {
         try {
 //            System.out.println("proddd " + Arrays.toString(theProductList.getProductList().toArray()));
             List<Product> productL = new ArrayList<Product>();
-            for(Product product: theProductList.getProductList()) {
+            for(Product product: theProductList) {
                 String productName = product.getProductName();
 //                System.out.println("product name: "+productName);
                 if(userProductList.contains(productName)) {
