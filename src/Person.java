@@ -43,5 +43,7 @@ public abstract class Person {
     void showLabels() {
 
     }
-    abstract ProductMenu createProductMenu();
+    abstract ProductMenu createProductMenu(Product selectedProduct);
+
+
 }

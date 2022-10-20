@@ -8,15 +8,7 @@ public class Facade {
     ClassProductList theProductList;
     Person thePerson;
 
-    boolean login() {
-
-        System.out.println("Enter username: ");
-
-        Scanner scanner = new Scanner(System.in);
-        String username = scanner.nextLine().trim();
-
-        System.out.println("Enter password: ");
-        String password = scanner.nextLine().trim();
+    boolean login(String username, String password) {
 
         Login loginObject = new Login();
         int tempUserType = loginObject.login(username, password);
@@ -29,11 +21,11 @@ public class Facade {
     }
 
     void addTrading() {
-
+        System.out.println("Added trading");
     }
 
     void viewTrading() {
-
+        System.out.println("Viewed trading");
     }
 
     void dicideBidding() {
@@ -104,11 +96,11 @@ public class Facade {
     }
 
     Product selectProduct() {
-        int count = 1;
-        for(Product product: thePerson.getProductList()) {
-            System.out.println(count + ": "+product.getProductName());
-            count++;
-        }
+//        int count = 1;
+//        for(Product product: thePerson.getProductList()) {
+//            System.out.println(count + ": "+product.getProductName());
+//            count++;
+//        }
         Scanner s = new Scanner(System.in);
         System.out.println("select the product: ");
         int choice = s.nextInt();
@@ -124,6 +116,17 @@ public class Facade {
 
     void productOperation() {
         thePerson.showMenu();
+        theSelectedProduct = this.selectProduct();
+        ProductMenu productMenu = thePerson.createProductMenu(theSelectedProduct);
+        productMenu.showMenu();
+        Scanner s = new Scanner(System.in);
+        String choice = s.nextLine().trim();
+        if(choice.equalsIgnoreCase("A")) {
+            this.addTrading();
+        } else if(choice.equalsIgnoreCase("V")) {
+            this.viewTrading();
+        }
+
     }
 
 
