@@ -2,18 +2,34 @@ import java.util.ListIterator;
 
 public class ProductIterator implements ListIterator<Product> {
 
+    ClassProductList productList;
+    int next;
+    int current;
     void moveToHead() {
+        next = 0;
+    }
 
+    public ProductIterator(ClassProductList productList) {
+        this.productList = productList;
+        next = 0;
+        current = next-1;
     }
 
     @Override
     public boolean hasNext() {
-        return false;
+        if(next < productList.size()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public Product next() {
-        return null;
+        Product currentProduct = this.productList.get(next);
+        this.next = this.next+1;
+        this.current = next-1;
+        return currentProduct;
     }
 
     @Override
@@ -38,7 +54,9 @@ public class ProductIterator implements ListIterator<Product> {
 
     @Override
     public void remove() {
-
+        productList.remove(current);
+        next--;
+        current--;
     }
 
     @Override

@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.ListIterator;
 import java.util.Scanner;
 
 public class Main {
@@ -13,6 +15,15 @@ public class Main {
         String password = scanner.nextLine().trim();
 
         boolean validUser = facade.login(username, password);
+
+//        ClassProductList classProductList = new ClassProductList();
+//        System.out.println(Arrays.toString(classProductList.toArray()));
+//        ListIterator<Product> listIterator = classProductList.listIterator();
+//        while (listIterator.hasNext()){
+//            System.out.println(listIterator.next());
+//            listIterator.remove();
+//        }
+//        System.out.println(Arrays.toString(classProductList.toArray()));
         if(validUser) {
             System.out.println("Welcome");
 

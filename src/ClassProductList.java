@@ -1,8 +1,13 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class ClassProductList extends ArrayList<Product> {
+    @Override
+    public ListIterator<Product> listIterator() {
+        return new ProductIterator(this);
+    }
 
     public ClassProductList() throws IOException {
 //        productList = new ArrayList<Product>();
