@@ -134,6 +134,24 @@ public class Facade {
             offering.setOfferingDate(oldDate);
             offering.isSellerOffering = true;
         } else { // buyer
+            for(Product product: theProductList) {
+                if(product.getProductName().equals(theSelectedProduct.getProductName())) {
+                    if(product.trading == null) {
+                        System.out.println("Sorry cannot bid for this product as there are no opening trades");
+                        System.exit(1);
+                    } else {
+                        int count = 0;
+                        for(Offering offering1: product.trading.offeringList) {
+                            if(offering1.isSellerOffering) {
+                                count++;
+                            }
+                        }
+                        if(count == 0)
+                            System.exit(1);
+                    }
+
+                }
+            }
             System.out.println("Enter bid price(dollars) for the selected product");
             Float price = Float.parseFloat(scanner.nextLine().trim());
             Date oldDate = Calendar.getInstance().getTime();

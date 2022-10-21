@@ -1,0 +1,19 @@
+1. Facade is implemented by the Facade class. The Main function acts as the GUI class
+and calls the methods in the Facade class by creating a facade object.
+
+2. Factory pattern is implemented by the Buyer/Seller class that extends the Person class
+and the corresponding object is created at runtime based on the login information
+
+3. Bridge pattern is implemented by the ProductMenu; depending on the product selected,
+either MeatProductMenu or ProduceProductMenu is created
+
+4. Iterator pattern is implemented by the ListIterator and OfferingIterator classes
+that iterate through the ClassProductList and OfferingList class, both of which implemented
+the in-built ArrayList class
+
+5. Visitor pattern is implemented by the ReminderVisitor class that visits 3 data structures,
+Facade, Trading and Product. Based on the trading objects, reminders are sent to the user
+at the end of their session.
+
+
+
