@@ -1,6 +1,10 @@
 import java.io.Serializable;
 import java.util.Date;
 
+/*
+This class contains the trading information that is set up by the seller. The seller creates a trade
+on a product
+ */
 public class Trading implements Serializable {
     OfferingList offeringList;
     Product product;
@@ -38,6 +42,9 @@ public class Trading implements Serializable {
         this.offeringList = offeringList;
     }
 
+    /*
+    accepts the ReminderVisitor object and then calls the visitTradaing method of the visitor
+     */
     void accept(NodeVisitor visitor) {
 //        System.out.println("Trading has accepted Reminder Visitor");
         visitor.visitTrading(this);

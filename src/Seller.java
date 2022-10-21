@@ -1,6 +1,9 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/*
+Seller is the concrete subclass of Person
+ */
 public class Seller extends Person implements Serializable {
     @Override
     void showMenu() {
@@ -29,6 +32,9 @@ public class Seller extends Person implements Serializable {
         this.userInfoItem = userInfoItem;
     }
 
+    /*
+    creates the product Menu depending on the
+     */
     @Override
     ProductMenu createProductMenu(Product selectedProduct) {
         // FACTORY METHOD PATTERN USED TO INSTANTIATE DIFFERENT TYPES OF PRODUCT MENUS

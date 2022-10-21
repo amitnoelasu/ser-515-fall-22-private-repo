@@ -4,7 +4,17 @@ import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/*
+    Login class is connected with facade as a dependency
+ */
 public class Login {
+
+    /*
+    This method validates the login credentials provided by the user
+    with the text files provided ,ie, BuyerInfo.txt and SellerInfo.txt
+    returns Usertype : 0 for buyer, 1 for seller
+    -1 if invalid login
+     */
     int login(String username, String password) {
         int userType = -1;
 

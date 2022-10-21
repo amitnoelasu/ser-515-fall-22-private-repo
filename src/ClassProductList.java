@@ -3,12 +3,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+/*
+This class extends the in-built java ArrayList
+ */
 public class ClassProductList extends ArrayList<Product> implements Serializable{
+
+    /*
+    This method creates a new ProductIterator and returns the list iterator
+     */
     @Override
     public ListIterator<Product> listIterator() {
         return new ProductIterator(this);
     }
 
+
+    /*
+    The class product list is initialized by reading the ProductInfo.txt file
+    ALl the products in the system are put into this list
+     */
     public ClassProductList() throws Exception{
 //        productList = new ArrayList<Product>();
 //        System.out.println("byeee");

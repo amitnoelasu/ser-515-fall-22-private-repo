@@ -10,7 +10,9 @@ public class Facade {
     ClassProductList theProductList;
     Person thePerson;
     public static final long MINUTE = 60*1000;
-
+    /*
+    The LOGIN functionality is called by the login method of this facade object
+     */
     boolean login(String username, String password) throws Exception {
 
         Login loginObject = new Login();
@@ -30,6 +32,11 @@ public class Facade {
         }
         return false;
     }
+
+    /*
+    Retrieves the list of products in the entire system from history(file) and returns them
+    This method is used to retrieve information about previous trades
+     */
     List<Product> retrieveProducts() throws Exception{
         File productsData = new File("ProductData.txt");
         if(!productsData.exists())
@@ -51,6 +58,10 @@ public class Facade {
             objectOut.close();
         }
     }
+
+    /*
+    This method is used to commit the updated (new trades added) product list into the file system
+     */
     boolean persistProducts(){
         try {
             File productsData;
@@ -93,6 +104,11 @@ public class Facade {
 
     }
 
+    /*
+    This method is invoked when the user clicks the "add" button on the product menu
+    It is used to make an offering(or expected offering for a seller) and create a trading object
+    for that selected product
+     */
     void addTrading() {
         Trading trading = theSelectedProduct.getTrading();
         if(trading == null)
@@ -171,6 +187,10 @@ public class Facade {
 
     }
 
+    /*
+    This function is used to visit the Facade object, then ClassProductList, Trading and Offering
+    objects iteratively and finally remind the user of any upcoming trade expiries
+     */
     void remind() {
 
         NodeVisitor visitor = new ReminderVisitor();
@@ -183,11 +203,17 @@ public class Facade {
         thePerson = PersonFactory.createPerson(userInfoItem);
     }
 
+    /*
+    Creates the product list and assigns the created object to the reference "theProductList"
+     */
     void createProductList() throws Exception{
         this.theProductList = new ClassProductList();// creates a list of all products in the system
 //        System.out.println(Arrays.toString(theProductList.productList.toArray()));
     }
 
+    /*
+    Iterates through the UserProduct.txt file and assigns the productList to thePerson.productList
+     */
     void attachProductToUser() throws Exception {
         Set<String> userProductList = new HashSet<String>();
         File userProducts = new File(
@@ -233,6 +259,9 @@ public class Facade {
 
     }
 
+    /*
+    Prompts the user to select a product and return that selection
+     */
     Product selectProduct() {
 //        int count = 1;
 //        for(Product product: thePerson.getProductList()) {
@@ -252,6 +281,10 @@ public class Facade {
         return null;
     }
 
+    /*
+    Product operation shows the product menu to the user, and the add button and view button
+    Clicking on the add button takes the user to the addTrading method of this class
+     */
     void productOperation() {
         thePerson.showMenu();
         theSelectedProduct = this.selectProduct();
@@ -269,6 +302,9 @@ public class Facade {
 
     }
 
+    /*
+    accepts visitors into the facade object
+     */
     void accept(NodeVisitor visitor) {
 //        System.out.println("Facade visitor accepted by Facade");
         visitor.visitFacade(this);

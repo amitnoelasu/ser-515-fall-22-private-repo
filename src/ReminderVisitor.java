@@ -2,6 +2,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/*
+This class extends NodeVisitor and provides the implementation visiting and processing
+Trading, ClassProductList
+ */
 public class ReminderVisitor extends NodeVisitor{
     Reminder m_Reminder;
 
@@ -9,7 +13,7 @@ public class ReminderVisitor extends NodeVisitor{
 
     @Override
     void visitProduct(Product product) {
-
+        visitTrading(product.getTrading());
     }
     void visitClassProductList() {
         for(Product product: classProductList) {
