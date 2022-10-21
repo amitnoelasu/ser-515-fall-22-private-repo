@@ -26,8 +26,10 @@ public class Main {
 //        System.out.println(Arrays.toString(classProductList.toArray()));
         if(validUser) {
             System.out.println("Welcome");
+//            facade.initPersistenceFile();
 
             facade.createProductList();
+            facade.initProductList();
             facade.attachProductToUser();
             facade.productOperation();
 

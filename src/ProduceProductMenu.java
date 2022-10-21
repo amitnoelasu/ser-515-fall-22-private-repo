@@ -2,8 +2,8 @@ public class ProduceProductMenu implements ProductMenu{
     @Override
     public void showMenu() {
         System.out.println("You are in the Produce produce menu");
-        showAddButton();
-        showViewButton();
+//        showAddButton();
+//        showViewButton();
     }
 
     @Override

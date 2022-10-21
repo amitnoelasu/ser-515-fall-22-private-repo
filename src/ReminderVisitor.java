@@ -1,6 +1,7 @@
 public class ReminderVisitor extends NodeVisitor{
     Reminder m_Reminder;
 
+    ClassProductList classProductList;
 
     @Override
     void visitProduct(Product product) {

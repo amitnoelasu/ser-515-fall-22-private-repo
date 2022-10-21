@@ -1,7 +1,15 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Buyer extends Person{
+public class Buyer extends Person implements Serializable {
+
+    @Override
+    public String toString() {
+        return "Buyer{" +
+                "userInfoItem=" + userInfoItem +
+                '}';
+    }
 
     @Override
     void showMenu() {
@@ -15,6 +23,18 @@ public class Buyer extends Person{
     }
     public Buyer(UserInfoItem userInfoItem) {
         this.userInfoItem = userInfoItem;
+    }
+
+    @Override
+    void showAddButton() {
+//        super.showAddButton();
+        theProductMenu.showAddButton();
+    }
+
+    @Override
+    void showViewButton() {
+//        super.showViewButton();
+        theProductMenu.showViewButton();
     }
 
     @Override

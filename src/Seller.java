@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Seller extends Person{
+public class Seller extends Person implements Serializable {
     @Override
     void showMenu() {
         int sNo = 1;
@@ -8,6 +9,19 @@ public class Seller extends Person{
             System.out.println(sNo++ + ": "+product.getProductName());
         }
     }
+
+    @Override
+    void showAddButton() {
+//        super.showAddButton();
+        theProductMenu.showAddButton();
+    }
+
+    @Override
+    void showViewButton() {
+//        super.showViewButton();
+        theProductMenu.showViewButton();
+    }
+
     Seller() {
         this.productList = new ArrayList<Product>();
     }

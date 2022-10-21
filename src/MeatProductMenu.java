@@ -3,8 +3,8 @@ public class MeatProductMenu implements ProductMenu {
     @Override
     public void showMenu() {
         System.out.println("You are in the Meat product Menu");
-        showAddButton();
-        showViewButton();
+//        showAddButton();
+//        showViewButton();
 
     }
 

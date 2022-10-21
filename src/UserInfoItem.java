@@ -1,4 +1,6 @@
-public class UserInfoItem {
+import java.io.Serializable;
+
+public class UserInfoItem implements Serializable {
     private String username;
     private String password;
     private int userType;
@@ -6,6 +8,15 @@ public class UserInfoItem {
         this.username = username;
         this.password = password;
         this.userType = userType;
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfoItem{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", userType=" + userType +
+                '}';
     }
 
     public int getUserType() {

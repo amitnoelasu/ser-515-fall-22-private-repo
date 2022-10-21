@@ -3,13 +3,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-public class ClassProductList extends ArrayList<Product> {
+public class ClassProductList extends ArrayList<Product> implements Serializable{
     @Override
     public ListIterator<Product> listIterator() {
         return new ProductIterator(this);
     }
 
-    public ClassProductList() throws IOException {
+    public ClassProductList() throws Exception{
 //        productList = new ArrayList<Product>();
 //        System.out.println("byeee");
         File productFile = new File(
@@ -28,6 +28,22 @@ public class ClassProductList extends ArrayList<Product> {
 //            this.productList.add(product);
             this.add(product);
         }
+        Facade f = new Facade();
+        try {
+            List<Product> pl = f.retrieveProducts();
+            if(pl != null) {
+//                for(Product product: this) {
+//                    if(pl.contains(product)) {
+//                        this.remove(product);
+//                    }
+//                }
+                this.removeAll(this);
+                this.addAll(pl);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 //        System.out.println("hellooooooo");
 //        theProductList = new ClassProductList(productList);
 //        this.productList = productList;
