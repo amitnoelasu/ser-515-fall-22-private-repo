@@ -59,6 +59,8 @@ public class ClassProductList extends ArrayList<Product> implements Serializable
 //    }
 
     void accept(NodeVisitor visitor) {
-
+        for(Product p: this) {
+            visitor.visitProduct(p);
+        }
     }
 }

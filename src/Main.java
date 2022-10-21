@@ -32,6 +32,8 @@ public class Main {
             facade.initProductList();
             facade.attachProductToUser();
             facade.productOperation();
+//            System.out.println("Product operation done");
+            facade.remind();
 
 //                Product selectedProduct = facade.selectProduct();
 //                if (selectedProduct != null) {

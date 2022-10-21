@@ -1,5 +1,6 @@
 import javax.jws.soap.SOAPBinding;
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Facade {
@@ -8,6 +9,7 @@ public class Facade {
     private int nProductCategory;
     ClassProductList theProductList;
     Person thePerson;
+    public static final long MINUTE = 60*1000;
 
     boolean login(String username, String password) throws Exception {
 
@@ -103,15 +105,29 @@ public class Facade {
             System.out.println("Enter offer price(dollars) for the selected product");
             float price = Float.parseFloat(scanner.nextLine().trim());
             offering.setSellerOffering(price);
+            System.out.println("Enter the duration for the window to be active(in minutes)");
+            int time = Integer.parseInt(scanner.nextLine().trim());
+            Date oldDate = Calendar.getInstance().getTime();
+//            System.out.println(oldDate);
+            trading.setWindowStartDate(oldDate);
+            Date expiryDate = new Date(oldDate.getTime() + time*MINUTE);
+//            System.out.println(expiryDate);
+//            Date userGivenTime = new
+//             = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
+            trading.setWindowExpiryDate(expiryDate);
+            offering.setOfferingDate(oldDate);
             offering.isSellerOffering = true;
         } else { // buyer
             System.out.println("Enter bid price(dollars) for the selected product");
             Float price = Float.parseFloat(scanner.nextLine().trim());
+            Date oldDate = Calendar.getInstance().getTime();
+            offering.setOfferingDate(oldDate);
             offering.setBuyerOffering(price);
         }
 
         // add offering to offering list of trading object
         trading.getOfferingList().add(offering);
+
         // set trading object for the product
         theSelectedProduct.setTrading(trading);
 
@@ -122,8 +138,8 @@ public class Facade {
             boolean success = persistProducts();
             if(success) {
                 System.out.println("Bye!!");
-                System.out.println("All offerings for this product: ");
-                System.out.println(Arrays.toString(theSelectedProduct.trading.offeringList.toArray()));
+//                System.out.println("All offerings for this product: ");
+//                System.out.println(Arrays.toString(theSelectedProduct.trading.offeringList.toArray()));
 
             } else {
                 System.out.println("Oops! we could not save your trading information. Login and try again! Bye!");
@@ -157,6 +173,10 @@ public class Facade {
 
     void remind() {
 
+        NodeVisitor visitor = new ReminderVisitor();
+        this.accept(visitor);
+
+//        visitor.visitProduct();
     }
 
     void createUser(UserInfoItem userInfoItem) {
@@ -209,7 +229,7 @@ public class Facade {
             System.out.println(e.getMessage());
         }
 
-        System.out.println(Arrays.toString(thePerson.productList.toArray()));
+//        System.out.println(Arrays.toString(thePerson.productList.toArray()));
 
     }
 
@@ -247,6 +267,11 @@ public class Facade {
             this.viewTrading();
         }
 
+    }
+
+    void accept(NodeVisitor visitor) {
+//        System.out.println("Facade visitor accepted by Facade");
+        visitor.visitFacade(this);
     }
 
 

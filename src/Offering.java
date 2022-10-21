@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.Date;
 
 public class Offering implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -6,6 +7,25 @@ public class Offering implements Serializable {
     float sellerOffering;
     float buyerOffering;
     boolean isSellerOffering;
+
+    Date offeringDate;
+
+    public boolean isSellerOffering() {
+        return isSellerOffering;
+    }
+
+    public void setSellerOffering(boolean sellerOffering) {
+        isSellerOffering = sellerOffering;
+    }
+
+    public Date getOfferingDate() {
+        return offeringDate;
+    }
+
+    public void setOfferingDate(Date offeringDate) {
+        this.offeringDate = offeringDate;
+    }
+
     public Product getProduct() {
         return product;
     }
